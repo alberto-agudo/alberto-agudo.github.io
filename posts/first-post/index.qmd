@@ -1,0 +1,14 @@
+---
+title: "Welcome to this blog"
+author: "Alberto Agudo Domínguez"
+date: "2024-01-28"
+image: "artemision-jockey3.jpg"
+---
+
+Hi, this is Alberto. Welcome to my blog. I will use it as a platform to collate my notes and thoughts about different programming, statistics, and AI concepts. I intend to use it as a way to record what I learn, so that new ideas become clearer by trying to explain them and also so you can benefit from it.
+
+As most of my posts will be related to code or other technical concepts, I'd like to sometimes complement the content of the blog with images of a completely unrelated topic that I find enjoyable: Sculpture. This is the [Artemision Jockey](https://www.namuseum.gr/en/collection/ellinistiki-periodos-2/), a bronze sculpture from the Hellenistic Period which can be found in the Archaeological Museum of Athens. It shows a young jockey riding a horse.
+
+![](artemision-jockey3.jpg)
+
+I did not take this photo, but I have been lucky enough to see this work in person (and bad enough of a photographer to not use the one I took at the museum). I am humbled to think that someone was able to craft this with bronze more than two thousand years ago. I find it inspiring, and it motivates me to learn and become a craftsman like the author of this piece of art. Hence, I hope this blog helps me as well as you to, just like that horse, push forward.

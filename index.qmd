@@ -1,0 +1,23 @@
+---
+title: "Alberto Agudo Domínguez"
+image: personal_profile_picture.jpg
+about:
+  template: jolla    #- {jolla, solana, ...}
+  image-width: 20em     #- https://cybmeta.com/em-y-rem
+  image-shape: rectangle    #- rectangle, round, rounded
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/albertoagudodominguez
+    - icon: github
+      text: Github
+      href: https://github.com/alberto-agudo
+    - icon: envelope
+      href: "mailto:<a.agudo99@hotmail.es>"
+
+---
+
+I am a data scientist, currently working at Ebiquity plc. 
+My primary interests are programming, statistics and artificial intelligence. 
+
+Please do get in touch if you want to propose a project or discuss any ideas.

@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  title: "Alberto Agudo Domínguez"
+  navbar:
+    # background: "#170108"
+    right:
+      - text: "About"
+        href: index.qmd
+    left: 
+      - text: "Blog"
+        href: blog.qmd
+      - text: "CV"
+        href: /pdfs/CV Alberto Agudo.pdf
+  page-footer:
+    left: "Alberto Agudo Domínguez"
+    center: "Made with [Quarto](https://quarto.org)"
+format:
+  html:
+    theme: slate  
+    css: styles.css
+    toc: true
+    highlight-style: a11y
+    email-obfuscation: references
