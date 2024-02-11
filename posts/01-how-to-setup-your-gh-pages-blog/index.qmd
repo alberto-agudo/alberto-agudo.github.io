@@ -1,0 +1,66 @@
+---
+title: "How to host your Quarto blog in GitHub Pages"
+author: "Alberto Agudo Domínguez"
+date: "2024-01-30"
+categories: [Quarto, GitHub]
+image: "discobolus.webp"
+---
+
+This blog was created through [Quarto](https://quarto.org/). Quarto is a markdown language developed by [Posit](https://posit.co/) with the aim of integrating different markdown languages for scientific and resource publishing (such as blogdown for blogs or bookdown for books) together with Python, R, and Julia; that is, trying to remain language-agnostic between the main languages that support data science for content publishing. You can use Quarto to create presentations, papers, reports, books, blogs like this one, and much more.
+
+There are two steps to set up your Quarto blog in GitHub Pages, the first one being the Quarto blog itself and the second one publishing to a web domain through GitHub Pages. I won't teach here the methods for creating a blog in Quarto. For Spanish speakers, there is a great [workshop by Pedro J. Pérez](https://perezp44.github.io/taller.primer.blog/) that guides you through the process, it is quite comprehensive (actually, it's what I used to generate mine, so thank you Pedro!). As I didn't use an English tutorial, I am not familiar with similar sources to that workshop in English, so I would start by the [Quarto documentation](https://quarto.org/docs/websites/website-blog.html). *Any suggestions are welcome here to help other English-speaking students*.
+
+Here I will teach you the second step, how to host your blog in GitHub Pages through a GitHub Actions process. There is a clear guide in the Quarto documentation for [publishing](https://quarto.org/docs/publishing/github-pages.html) your blog in different ways. However, I got a bit lost in the process, so I'll refresh the steps I took here:
+
+First, you create a new repo in GitHub, called `{username}.github.io`; mine is called `alberto-agudo.github.io`. Then, you bring your Quarto project folder into that repo.
+
+Make sure you publish your latest blog posts and the current state of the blog through the following command in the terminal: `quarto publish gh-pages`. This creates a YAML configuration (`_publish.yml`) which is used by the subsequent invocations of the GitHub Action. [You only need to run this once,]{.underline} as the following publications will come along every time you push your changes on the site to main.
+
+Once you've completed a local publish, add a `publish.yml` GitHub Action to your project by creating this YAML file and saving it to `.github/workflows/publish.yml` in your Quarto blog folder:
+
+``` yaml
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+This is a GitHub Action that will render and publish your quarto website every time you push new changes to the main branch of your Quarto project folder. You need to make sure you've checked the Read and write permissions box in Repository settings -\> Actions -\> Workflow permissions.
+
+Now, although not compulsory, I recommend that you add two lines to the .gitignore file of your Quarto project folder, as you'll be publishing your blog through a process that doesn't require them, and this might create large git diffs in your repo in the long-term.
+
+```         
+/.quarto/
+/_site/
+```
+
+Now, if you haven't done so, push your changes to the main branch of your GitHub repo.
+
+Finally, the last step that I forgot to take was to modify the settings for Build and Deployment of your GitHub Pages site from a certain branch. You need to configure it under repo Settings -\> Code and automation / Pages. Under the Branch from where the page is built, you need to specify gh-pages, which is a branch created when you run `quarto publish gh-pages`. You also need to specify the folder to use for the site within your Source branch, which is `\root`.
+
+![](gh-pages-settings-setup.png)
+
+Once the GitHub Action finishes running, and the Settings of Pages are synced with the gh-pages branch, your site should be up and running soon.
+
+This is how I have set up my Quarto blog to run and create a site through GitHub Pages and the use of GitHub Actions. I hope it helps you to set it up too.
