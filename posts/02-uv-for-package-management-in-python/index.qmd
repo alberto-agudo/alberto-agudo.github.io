@@ -1,0 +1,85 @@
+---
+title: "uv cheatsheet for package management in Python"
+author: "Alberto Agudo Domínguez"
+date: "2024-02-11"
+categories: [Python, uv, pip, package-management]
+image: "https://imgs.xkcd.com/comics/python_environment.png"
+---
+
+*Note: This post assumes previous Python package management knowledge, mainly* *virtualenv and pip.*
+
+## `UV` for package management in Python
+
+This post is probably only interesting to you if you program in Python.
+
+If you're not using `conda`, you've probably resorted to `pip` to manage your packages. If you've worked in multiple projects at the same time, it's quite likely you've used `virtualenv` at some point, or other virtual environment alternatives like `pipenv`.
+
+As of 2024, a new Python package manager has been developed that aims to substitute the functionality of many other package managers in Python: `uv`.
+
+`uv` allows you to create a virtual environment, install or remove packages or different Python versions and much more within a single tool. 
+
+And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio's dependencies with a warm cache ![Installing Trio's dependencies with a warm cache](image.png){fig-align="center"}.
+
+Hence, its two main strengths are **versatility** and **speed**.
+
+Here I'll outline some commands to create a quick reference cheatsheet, however, the best article I've read about it is this [one](https://www.saaspegasus.com/guides/uv-deep-dive/).
+
+Particularly, the two main sections which I find very useful for reference are the cheatsheets, one for [uv vs existing tooling](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling), and then the [native uv workflow](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows).
+
+Here are the commands I promised, both for integrating UV into the use of pip or virtualenv, and also to use native uv when setting up a completely new project.
+
+### Integrating UV into existing workflows 
+
+1)  `uv` installation:
+
+-   macOS/Linux: `curl -LsSf https://astral.sh/uv/install.sh \| sh`
+-   Windows: `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"`
+-   pip: `pip install uv`
+
+2)  Installing Python:
+
+    `uv python install 3.12`
+
+3)  Managing virtual environments:
+
+- Previously: `python3.12 -m venv /path/to/environment`
+- Currently: `uv venv /path/to/environment --python 3.12`
+
+4)  Installing a package:
+
+- Previously: `pip install flask` 
+- Currently: `uv pip install flask`
+
+5)  Building package dependencies (requirements.txt) file:
+
+- pip-tools: `pip-compile requirements.in -o requirements.txt` 
+- uv: uv pip `compile requirements.in -o requirements.txt`
+
+------------------------------------------------------------------------
+
+### USING NATIVE UV:
+
+1) Initializing repo: `uv init repo`
+
+    That will create a `pyproject.toml` file, which will handle the package requirements of the project for you. 
+    It also automatically creates a virtual environment for you.
+
+2) Adding packages to the repo: `uv add` (flask) 
+
+    You can also manually specify packages in the `pyproject.toml`
+
+3) Installing dependencies: `uv sync`
+
+Makes sure everything specified in `pyproject.toml` is installed.
+
+
+4) Running a python file: `uv run` (app.py)
+
+This one will make sure that all dependencies are installed and up to date before reunning a python file
+
+5) Checking current dependencies tree: `uv tree`
+
+
+---
+
+This is a very short list of commands I've found useful so far, for more information please check out the blog I've mentioned above.

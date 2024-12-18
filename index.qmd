@@ -1,6 +1,6 @@
 ---
 title: "Alberto Agudo Domínguez"
-image: personal_profile_picture.jpg
+image: profile_pic.jpg
 about:
   template: jolla    #- {jolla, solana, ...}
   image-width: 20em     #- https://cybmeta.com/em-y-rem
@@ -18,6 +18,6 @@ about:
 ---
 
 I am a data scientist, currently working at Ebiquity plc. 
-My primary interests are programming, statistics and artificial intelligence. 
+My primary interests are programming, cloud architecture, statistics and artificial intelligence. 
 
 Please do get in touch if you want to propose a project or discuss any ideas.

@@ -20,6 +20,7 @@ website:
 format:
   html:
     theme: slate  
+    fontcolor: "#C4C4C4"
     css: styles.css
     toc: true
     highlight-style: a11y
