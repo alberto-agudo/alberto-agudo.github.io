@@ -1,7 +1,7 @@
 ---
 title: "uv cheatsheet for package management in Python"
 author: "Alberto Agudo Domínguez"
-date: "2024-02-11"
+date: "2024-12-18"
 categories: [Python, uv, pip, package-management]
 image: "https://imgs.xkcd.com/comics/python_environment.png"
 ---
@@ -28,7 +28,7 @@ Particularly, the two main sections which I find very useful for reference are t
 
 Here are the commands I promised, both for integrating UV into the use of pip or virtualenv, and also to use native uv when setting up a completely new project.
 
-### Integrating UV into existing workflows 
+### Integrating `uv` into existing workflows 
 
 1)  `uv` installation:
 
@@ -57,7 +57,7 @@ Here are the commands I promised, both for integrating UV into the use of pip or
 
 ------------------------------------------------------------------------
 
-### USING NATIVE UV:
+### Using native `uv`:
 
 1) Initializing repo: `uv init repo`
 
