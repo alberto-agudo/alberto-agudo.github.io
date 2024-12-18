@@ -8,7 +8,7 @@ image: "https://imgs.xkcd.com/comics/python_environment.png"
 
 *Note: This post assumes previous Python package management knowledge, mainly* *virtualenv and pip.*
 
-## `UV` for package management in Python
+## `uv` for package management in Python
 
 This post is probably only interesting to you if you program in Python.
 
@@ -53,7 +53,7 @@ Here are the commands I promised, both for integrating UV into the use of pip or
 5)  Building package dependencies (requirements.txt) file:
 
 - pip-tools: `pip-compile requirements.in -o requirements.txt` 
-- uv: uv pip `compile requirements.in -o requirements.txt`
+- uv: `uv pip compile requirements.in -o requirements.txt`
 
 ------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ Here are the commands I promised, both for integrating UV into the use of pip or
     That will create a `pyproject.toml` file, which will handle the package requirements of the project for you. 
     It also automatically creates a virtual environment for you.
 
-2) Adding packages to the repo: `uv add` (flask) 
+2) Adding packages to the repo: `uv add` (e.g., flask) 
 
     You can also manually specify packages in the `pyproject.toml`
 
@@ -73,7 +73,7 @@ Here are the commands I promised, both for integrating UV into the use of pip or
 Makes sure everything specified in `pyproject.toml` is installed.
 
 
-4) Running a python file: `uv run` (app.py)
+4) Running a python file: `uv run` (e.g., app.py)
 
 This one will make sure that all dependencies are installed and up to date before reunning a python file
 
