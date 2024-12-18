@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://alberto-agudo.github.io/blog.html</loc>
-    <lastmod>2024-02-11T14:03:23.241Z</lastmod>
-  </url>
-  <url>
-    <loc>https://alberto-agudo.github.io/posts/00-first-post/index.html</loc>
-    <lastmod>2024-02-11T14:03:23.253Z</lastmod>
-  </url>
-  <url>
     <loc>https://alberto-agudo.github.io/index.html</loc>
-    <lastmod>2024-02-11T14:03:23.249Z</lastmod>
+    <lastmod>2024-12-18T15:48:23.550Z</lastmod>
   </url>
   <url>
     <loc>https://alberto-agudo.github.io/posts/01-how-to-setup-your-gh-pages-blog/index.html</loc>
-    <lastmod>2024-02-11T14:03:23.253Z</lastmod>
+    <lastmod>2024-12-18T15:48:23.551Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/blog.html</loc>
+    <lastmod>2024-12-18T15:48:23.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/posts/02-uv-for-package-management-in-python/index.html</loc>
+    <lastmod>2024-12-18T15:48:23.551Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/posts/00-first-post/index.html</loc>
+    <lastmod>2024-12-18T15:48:23.550Z</lastmod>
   </url>
 </urlset>

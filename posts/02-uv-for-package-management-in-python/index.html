@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="My notes on programming, stats and AI">
+<meta name="author" content="Alberto Agudo Domínguez">
+<meta name="dcterms.date" content="2024-02-11">
 
-<title>Posts – Alberto Agudo Domínguez</title>
+<title>uv cheatsheet for package management in Python – Alberto Agudo Domínguez</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d3043699f4f525e226433170f63674df.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-25433ece000ddd62b812a3758a41376d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d3043699f4f525e226433170f63674df.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-25433ece000ddd62b812a3758a41376d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,67 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -139,7 +80,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Alberto Agudo Domínguez</span>
     </a>
   </div>
@@ -150,17 +91,17 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./pdfs/CV Alberto Agudo.pdf"> 
+    <a class="nav-link" href="../../pdfs/CV Alberto Agudo.pdf"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -173,133 +114,133 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">Posts</h1>
-                  <div>
-        <div class="description">
-          My notes on programming, stats and AI
-        </div>
-      </div>
-                </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">uv cheatsheet for package management in Python</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">uv</div>
+                <div class="quarto-category">pip</div>
+                <div class="quarto-category">package-management</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Alberto Agudo Domínguez </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 11, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#uv-for-package-management-in-python" id="toc-uv-for-package-management-in-python" class="nav-link active" data-scroll-target="#uv-for-package-management-in-python"><code>UV</code> for package management in Python</a>
+  <ul class="collapse">
+  <li><a href="#integrating-uv-into-existing-workflows" id="toc-integrating-uv-into-existing-workflows" class="nav-link" data-scroll-target="#integrating-uv-into-existing-workflows">Integrating UV into existing workflows</a></li>
+  <li><a href="#using-native-uv" id="toc-using-native-uv" class="nav-link" data-scroll-target="#using-native-uv">USING NATIVE UV:</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p><em>Note: This post assumes previous Python package management knowledge, mainly</em> <em>virtualenv and pip.</em></p>
+<section id="uv-for-package-management-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="uv-for-package-management-in-python"><code>UV</code> for package management in Python</h2>
+<p>This post is probably only interesting to you if you program in Python.</p>
+<p>If you’re not using <code>conda</code>, you’ve probably resorted to <code>pip</code> to manage your packages. If you’ve worked in multiple projects at the same time, it’s quite likely you’ve used <code>virtualenv</code> at some point, or other virtual environment alternatives like <code>pipenv</code>.</p>
+<p>As of 2024, a new Python package manager has been developed that aims to substitute the functionality of many other package managers in Python: <code>uv</code>.</p>
+<p><code>uv</code> allows you to create a virtual environment, install or remove packages or different Python versions and much more within a single tool.</p>
+<p>And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio’s dependencies with a warm cache <img src="image.png" class="img-fluid quarto-figure quarto-figure-center" alt="Installing Trio’s dependencies with a warm cache">.</p>
+<p>Hence, its two main strengths are <strong>versatility</strong> and <strong>speed</strong>.</p>
+<p>Here I’ll outline some commands to create a quick reference cheatsheet, however, the best article I’ve read about it is this <a href="https://www.saaspegasus.com/guides/uv-deep-dive/">one</a>.</p>
+<p>Particularly, the two main sections which I find very useful for reference are the cheatsheets, one for <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling">uv vs existing tooling</a>, and then the <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows">native uv workflow</a>.</p>
+<p>Here are the commands I promised, both for integrating UV into the use of pip or virtualenv, and also to use native uv when setting up a completely new project.</p>
+<section id="integrating-uv-into-existing-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="integrating-uv-into-existing-workflows">Integrating UV into existing workflows</h3>
+<ol type="1">
+<li><code>uv</code> installation:</li>
+</ol>
+<ul>
+<li>macOS/Linux: <code>curl -LsSf https://astral.sh/uv/install.sh \| sh</code></li>
+<li>Windows: <code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"</code></li>
+<li>pip: <code>pip install uv</code></li>
+</ul>
+<ol start="2" type="1">
+<li><p>Installing Python:</p>
+<p><code>uv python install 3.12</code></p></li>
+<li><p>Managing virtual environments:</p></li>
+</ol>
+<ul>
+<li>Previously: <code>python3.12 -m venv /path/to/environment</code></li>
+<li>Currently: <code>uv venv /path/to/environment --python 3.12</code></li>
+</ul>
+<ol start="4" type="1">
+<li>Installing a package:</li>
+</ol>
+<ul>
+<li>Previously: <code>pip install flask</code></li>
+<li>Currently: <code>uv pip install flask</code></li>
+</ul>
+<ol start="5" type="1">
+<li>Building package dependencies (requirements.txt) file:</li>
+</ol>
+<ul>
+<li>pip-tools: <code>pip-compile requirements.in -o requirements.txt</code></li>
+<li>uv: uv pip <code>compile requirements.in -o requirements.txt</code></li>
+</ul>
+<hr>
+</section>
+<section id="using-native-uv" class="level3">
+<h3 class="anchored" data-anchor-id="using-native-uv">USING NATIVE UV:</h3>
+<ol type="1">
+<li><p>Initializing repo: <code>uv init repo</code></p>
+<p>That will create a <code>pyproject.toml</code> file, which will handle the package requirements of the project for you. It also automatically creates a virtual environment for you.</p></li>
+<li><p>Adding packages to the repo: <code>uv add</code> (flask)</p>
+<p>You can also manually specify packages in the <code>pyproject.toml</code></p></li>
+<li><p>Installing dependencies: <code>uv sync</code></p></li>
+</ol>
+<p>Makes sure everything specified in <code>pyproject.toml</code> is installed.</p>
+<ol start="4" type="1">
+<li>Running a python file: <code>uv run</code> (app.py)</li>
+</ol>
+<p>This one will make sure that all dependencies are installed and up to date before reunning a python file</p>
+<ol start="5" type="1">
+<li>Checking current dependencies tree: <code>uv tree</code></li>
+</ol>
+<hr>
+<p>This is a very short list of commands I’ve found useful so far, for more information please check out the blog I’ve mentioned above.</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UHl0aG9uJTJDdXYlMkNwaXAlMkNwYWNrYWdlLW1hbmFnZW1lbnQ=" data-listing-date-sort="1707609600000" data-listing-file-modified-sort="1734536903551" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="441">
-<div class="thumbnail">
-<p><a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external"></a></p><a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external">
-<p><img loading="lazy" src="https://imgs.xkcd.com/comics/python_environment.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external">uv cheatsheet for package management in Python</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external"><em>Note: This post assumes previous Python package management knowledge, mainly</em> <em>virtualenv and pip.</em></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/02-uv-for-package-management-in-python/index.html" class="no-external">
-<div class="listing-date">
-Feb 11, 2024
-</div>
-<div class="listing-author">
-Alberto Agudo Domínguez
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UXVhcnRvJTJDR2l0SHVi" data-listing-date-sort="1707609600000" data-listing-file-modified-sort="1734536903551" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="751">
-<div class="thumbnail">
-<p><a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external"></a></p><a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/01-how-to-setup-your-gh-pages-blog/discobolus.webp" class="thumbnail-image"></p>
-</a><p><a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external">How to host your Quarto blog in GitHub Pages</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external">This blog was created through Quarto. Quarto is a markdown language developed by Posit with the aim of integrating different markdown languages for scientific and resource…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/01-how-to-setup-your-gh-pages-blog/index.html" class="no-external">
-<div class="listing-date">
-Feb 11, 2024
-</div>
-<div class="listing-author">
-Alberto Agudo Domínguez
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1706400000000" data-listing-file-modified-sort="1734536903550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="218">
-<div class="thumbnail">
-<p><a href="./posts/00-first-post/index.html" class="no-external"></a></p><a href="./posts/00-first-post/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/00-first-post/artemision-jockey3.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/00-first-post/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/00-first-post/index.html" class="no-external">Welcome to this blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/00-first-post/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/00-first-post/index.html" class="no-external">Hi, this is Alberto. Welcome to my blog. I will use it as a platform to collate my notes and thoughts about different programming, statistics, and AI concepts. I intend to…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/00-first-post/index.html" class="no-external">
-<div class="listing-date">
-Jan 28, 2024
-</div>
-<div class="listing-author">
-Alberto Agudo Domínguez
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
