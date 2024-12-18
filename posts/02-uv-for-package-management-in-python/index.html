@@ -212,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <ul>
 <li>pip-tools: <code>pip-compile requirements.in -o requirements.txt</code></li>
-<li>uv: uv pip <code>compile requirements.in -o requirements.txt</code></li>
+<li>uv: <code>uv pip compile requirements.in -o requirements.txt</code></li>
 </ul>
 <hr>
 </section>
@@ -221,13 +221,13 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><p>Initializing repo: <code>uv init repo</code></p>
 <p>That will create a <code>pyproject.toml</code> file, which will handle the package requirements of the project for you. It also automatically creates a virtual environment for you.</p></li>
-<li><p>Adding packages to the repo: <code>uv add</code> (flask)</p>
+<li><p>Adding packages to the repo: <code>uv add</code> (e.g., flask)</p>
 <p>You can also manually specify packages in the <code>pyproject.toml</code></p></li>
 <li><p>Installing dependencies: <code>uv sync</code></p></li>
 </ol>
 <p>Makes sure everything specified in <code>pyproject.toml</code> is installed.</p>
 <ol start="4" type="1">
-<li>Running a python file: <code>uv run</code> (app.py)</li>
+<li>Running a python file: <code>uv run</code> (e.g., app.py)</li>
 </ol>
 <p>This one will make sure that all dependencies are installed and up to date before reunning a python file</p>
 <ol start="5" type="1">
