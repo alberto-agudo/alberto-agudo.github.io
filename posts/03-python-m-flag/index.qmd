@@ -1,0 +1,153 @@
+---
+title: "Module execution in Python: Import, python -m script.py, and python script.py"
+author: "Alberto Agudo Domínguez"
+date: "2025-01-16"
+categories: [Python]
+image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Laoco%C3%B6n_and_his_sons_group.jpg/942px-Laoco%C3%B6n_and_his_sons_group.jpg"
+---
+
+# Understanding **python -m script.py** vs. **python script.py** and **import**
+Have you ever wondered why you run `python -m venv myenv` and not `python venv myenv`?  
+Have you ever tried to run a Python file that imported another one of your local modules and encountered this error?
+
+```bash
+python .\test\first_module_tests\test1.py  
+Traceback (most recent call last):  
+  File "~\project_dir\test\first_module_tests\test1.py", line 5, in <module>  
+    from src.module_folder.module1 import this_function  
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
+ModuleNotFoundError: No module named 'src'
+```
+
+These situations relate to how the Python interpreter works under the hood. In this article, we’ll explain the differences between executing Python code using `import`, `python script.py`, and `python -m script.py`.
+
+---
+
+### Modules and Packages in Python 
+
+Before diving into the differences, let’s define some terms:
+ 
+- **Modules** : The fundamental building blocks of Python. There are two types: 
+  - **Code modules** : Files containing Python code (e.g., `example.py`).  
+  - **Package modules** : Directories containing other modules, often marked with an `__init__.py` file. _(Optional from Python 3.3)._
+ 
+- **Modulename vs. Filename** : 
+  - **Modulename** : The Python identifier used for importing a module (e.g., `import mymodule`).  
+  - **Filename** : The actual file path used to execute a script (e.g., `python ./mymodule.py`).
+Python resolves modulenames to filenames based on the `sys.path` variable, which defines where the interpreter looks for modules.
+
+---
+
+### How Python Executes Modules 
+
+Let’s compare three ways of running Python code:  
+
+1. **`import`** (module execution through import statement):  When you use `import`, the interpreter loads the module into memory, executes its top-level code, and makes its contents available for use. For example:  
+```python
+    import mymodule
+```
+ 
+- **Effects** : 
+  - `sys.path` is **not modified** .
+ 
+  - `__name__` is set to the absolute modulename (e.g., `mymodule`).
+ 
+  - For package modules, the `__init__.py` file is executed.
+
+2. **`python script.py`** (module execution through command line with filename). Executing a file with `python script.py` runs it as a standalone script:  
+```bash
+python myscript.py
+```
+ 
+- **Effects** : 
+  - The **directory of the script** (`myscript.py`) is added to `sys.path`.
+ 
+  - `__name__` is set to `__main__`.
+ 
+  - For package modules, `__init__.py` is **not executed**.
+
+3. **`python -m modulename`** (module exeuction through command line with modulename). The `-m` flag allows you to execute a module by its name:  
+```bash
+python -m mypackage.myscript
+```
+ 
+- **Effects** : 
+  - The **current working directory** (i.e., from where you are executing your commands) is added to `sys.path`.
+ 
+  - `__name__` is set to `__main__`.
+ 
+  - For package modules, `__init__.py` is executed, followed by `__main__.py`.
+
+---
+
+
+#### Key Differences 
+| Execution Method | sys.path | `__name__` |Executes `__init__.py` | Executes `__main__.py` | 
+| :---: | :---: | :---: | :---: | :---: | 
+| `import modulename` | Unchanged | modulename | Yes | No | 
+| `python script.py` | Adds script’s directory | `__main__` | No | Yes (for package module) | 
+| `python -m modulename` | Adds current directory | `__main__` | Yes | Yes (for package module) | 
+
+
+---
+
+
+### Why Use `python -m`? 
+The `-m` flag combines the convenience of modulenames with the ability to do relative imports from a root directory. Particularly: 
+
+1. **Executing Standard Library or Third-Party Tools** :
+Many tools (like `venv` or `http.server`) are modules in the Python standard library or installed packages. Their filenames are not found easily, but their modulenames are:
+
+```bash
+python -m venv
+```
+ 
+That solves our first question from the intro.  
+If we tried to run `python venv`, we would be referencing the filename. Hence, Python would try to look for venv in the current directory, which will result in: 
+
+```bash
+python venv
+.\venv': [Errno 2] No such file or directory
+```
+
+
+2. **Running Local Modules with Imports** :
+`python -m` helps avoid import errors when running modules from a root project directory. Imagine you're working with this directory structure:
+
+```plaintext
+project_dir/
+    src/
+        module1.py
+    tests/
+        test_module1.py
+```
+
+Running `python -m tests.test_module1` ensures the `src` package in `test_module1.py` is available for imports.  
+
+Please note several caveats here.  
+First, for testing you would usually resort to either `pytest ...` or `python -m unittest tests/test_module1.py`.
+Second, one common error that I got when I didn't know about the differences between modulenames and filenames 
+was trying to run `python -m tests/test_module1.py`, which returned the following message:
+> Relative module names not supported
+
+At first, I thought this was related to the imports in test_module1.py. However, now I realize this is due to us
+using the -m flag for modulenames, which means the Python interpreter is treating the filepath as a modulename, and
+warns you that relative module names with slashes are not supported.
+
+On the other hand, if you try to use the syntax for filenames `python tests/test_module1.py`, 
+this will fail when there is an import in your tests that requires to use the src structure.
+
+Why? Because as mentioned above, the filename execution from the command line (python script.py) adds
+the directory of the executed file to the sys.path, whereas the modulename execution adds the current working directory.  
+Therefore, if we try to import src without having added the current working directory (project directory) to the sys.path,
+the Python interpreter won't find any module named src in the script directory (in this case, `tests`), telling us src wasn't found.
+
+### Conclusion 
+The `python -m` flag is more than a shorthand—it’s a powerful tool that bridges the gap between imports and script execution. It allows you to execute modules while preserving the integrity of their package structure, supports relative imports, and is essential for running tools and packages from the command line. 
+
+On the other hand, executing python without the -m flag executes modules using their filenames, adding their directory to sys.path.  
+
+I hope you found this blog post useful! If you have any questions or comments, feel free to reach out.
+
+
+_Note: The main source for this post is this [stackoverflow response](https://stackoverflow.com/a/62923810/15459665) to a similar question._

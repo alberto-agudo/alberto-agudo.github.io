@@ -19,9 +19,9 @@ website:
     center: "Made with [Quarto](https://quarto.org)"
 format:
   html:
-    theme: slate  
-    fontcolor: "#C4C4C4"
+    theme: cyborg  
+    # fontcolor: "#C4C4C4"
     css: styles.css
     toc: true
-    highlight-style: a11y
+    highlight-style: arrow
     email-obfuscation: references

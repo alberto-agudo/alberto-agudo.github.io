@@ -1,5 +1,14 @@
 /* css styles */
 
+/* Style for inline code */
+code {
+  background-color: #444444 !important; /* Darker background to blend with the cyborg theme */
+  color: #f8f9fa !important; /* Softer text color for inline code */
+  padding: 2px 4px; /* Adds slight padding for better readability */
+  border-radius: 3px; /* Rounds the edges slightly */
+  font-family: monospace; /* Ensures consistent font style */
+}
+
 
 /* justify text */ 
 p, ul, ol {

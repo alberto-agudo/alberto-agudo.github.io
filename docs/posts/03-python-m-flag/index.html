@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alberto Agudo Domínguez">
-<meta name="dcterms.date" content="2024-01-28">
+<meta name="dcterms.date" content="2025-01-16">
 
-<title>Welcome to this blog – Alberto Agudo Domínguez</title>
+<title>Module execution in Python: Import, python -m script.py, and python script.py – Alberto Agudo Domínguez</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -115,8 +149,11 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Welcome to this blog</h1>
-                      </div>
+      <h1 class="title">Module execution in Python: Import, python -m script.py, and python script.py</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+              </div>
+                  </div>
   </div>
     
   
@@ -132,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 28, 2024</p>
+        <p class="date">January 16, 2025</p>
       </div>
     </div>
     
@@ -143,8 +180,20 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#understanding-python--m-script.py-vs.-python-script.py-and-import" id="toc-understanding-python--m-script.py-vs.-python-script.py-and-import" class="nav-link active" data-scroll-target="#understanding-python--m-script.py-vs.-python-script.py-and-import">Understanding <strong>python -m script.py</strong> vs.&nbsp;<strong>python script.py</strong> and <strong>import</strong></a>
+  <ul class="collapse">
+  <li><a href="#modules-and-packages-in-python" id="toc-modules-and-packages-in-python" class="nav-link" data-scroll-target="#modules-and-packages-in-python">Modules and Packages in Python</a></li>
+  <li><a href="#how-python-executes-modules" id="toc-how-python-executes-modules" class="nav-link" data-scroll-target="#how-python-executes-modules">How Python Executes Modules</a></li>
+  <li><a href="#why-use-python--m" id="toc-why-use-python--m" class="nav-link" data-scroll-target="#why-use-python--m">Why Use <code>python -m</code>?</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -153,12 +202,163 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>Hi, this is Alberto. Welcome to my blog. I will use it as a platform to collate my notes and thoughts about different programming, statistics, and AI concepts. I intend to use it as a way to record what I learn, so that new ideas become clearer by trying to explain them and also so you can benefit from it.</p>
-<p>As most of my posts will be related to code or other technical concepts, I’d like to sometimes complement the content of the blog with images of a completely unrelated topic that I find enjoyable: Sculpture. This is the <a href="https://www.namuseum.gr/en/collection/ellinistiki-periodos-2/">Artemision Jockey</a>, a bronze sculpture from the Hellenistic Period which can be found in the Archaeological Museum of Athens. It shows a young jockey riding a horse.</p>
-<p><img src="artemision-jockey3.jpg" class="img-fluid"></p>
-<p>I did not take this photo, but I have been lucky enough to see this work in person (and bad enough of a photographer to not use the one I took at the museum). I am humbled to think that someone was able to craft this with bronze more than two thousand years ago. I find it inspiring, and it motivates me to learn and become a craftsman like the author of this piece of art. Hence, I hope this blog helps me as well as you to, just like that horse, push forward.</p>
+<section id="understanding-python--m-script.py-vs.-python-script.py-and-import" class="level1">
+<h1>Understanding <strong>python -m script.py</strong> vs.&nbsp;<strong>python script.py</strong> and <strong>import</strong></h1>
+<p>Have you ever wondered why you run <code>python -m venv myenv</code> and not <code>python venv myenv</code>?<br>
+Have you ever tried to run a Python file that imported another one of your local modules and encountered this error?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .<span class="dt">\t</span>est<span class="dt">\f</span>irst_module_tests<span class="dt">\t</span>est1.py  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Traceback</span> <span class="er">(</span><span class="ex">most</span> recent call last<span class="kw">)</span><span class="bu">:</span>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">"~\project_dir\test\first_module_tests\test1.py"</span>, line 5, in <span class="op">&lt;</span>module<span class="op">&gt;</span>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">from</span> src.module_folder.module1 import this_function  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ModuleNotFoundError:</span> No module named <span class="st">'src'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>These situations relate to how the Python interpreter works under the hood. In this article, we’ll explain the differences between executing Python code using <code>import</code>, <code>python script.py</code>, and <code>python -m script.py</code>.</p>
+<hr>
+<section id="modules-and-packages-in-python" class="level3">
+<h3 class="anchored" data-anchor-id="modules-and-packages-in-python">Modules and Packages in Python</h3>
+<p>Before diving into the differences, let’s define some terms:</p>
+<ul>
+<li><strong>Modules</strong> : The fundamental building blocks of Python. There are two types:
+<ul>
+<li><strong>Code modules</strong> : Files containing Python code (e.g., <code>example.py</code>).<br>
+</li>
+<li><strong>Package modules</strong> : Directories containing other modules, often marked with an <code>__init__.py</code> file. <em>(Optional from Python 3.3).</em></li>
+</ul></li>
+<li><strong>Modulename vs.&nbsp;Filename</strong> :
+<ul>
+<li><strong>Modulename</strong> : The Python identifier used for importing a module (e.g., <code>import mymodule</code>).<br>
+</li>
+<li><strong>Filename</strong> : The actual file path used to execute a script (e.g., <code>python ./mymodule.py</code>). Python resolves modulenames to filenames based on the <code>sys.path</code> variable, which defines where the interpreter looks for modules.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="how-python-executes-modules" class="level3">
+<h3 class="anchored" data-anchor-id="how-python-executes-modules">How Python Executes Modules</h3>
+<p>Let’s compare three ways of running Python code:</p>
+<ol type="1">
+<li><strong><code>import</code></strong> (module execution through import statement): When you use <code>import</code>, the interpreter loads the module into memory, executes its top-level code, and makes its contents available for use. For example:<br>
+</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> mymodule</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>Effects</strong> :
+<ul>
+<li><p><code>sys.path</code> is <strong>not modified</strong> .</p></li>
+<li><p><code>__name__</code> is set to the absolute modulename (e.g., <code>mymodule</code>).</p></li>
+<li><p>For package modules, the <code>__init__.py</code> file is executed.</p></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li><strong><code>python script.py</code></strong> (module execution through command line with filename). Executing a file with <code>python script.py</code> runs it as a standalone script:<br>
+</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> myscript.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>Effects</strong> :
+<ul>
+<li><p>The <strong>directory of the script</strong> (<code>myscript.py</code>) is added to <code>sys.path</code>.</p></li>
+<li><p><code>__name__</code> is set to <code>__main__</code>.</p></li>
+<li><p>For package modules, <code>__init__.py</code> is <strong>not executed</strong>.</p></li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li><strong><code>python -m modulename</code></strong> (module exeuction through command line with modulename). The <code>-m</code> flag allows you to execute a module by its name:<br>
+</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> mypackage.myscript</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>Effects</strong> :
+<ul>
+<li><p>The <strong>current working directory</strong> (i.e., from where you are executing your commands) is added to <code>sys.path</code>.</p></li>
+<li><p><code>__name__</code> is set to <code>__main__</code>.</p></li>
+<li><p>For package modules, <code>__init__.py</code> is executed, followed by <code>__main__.py</code>.</p></li>
+</ul></li>
+</ul>
+<hr>
+<section id="key-differences" class="level4">
+<h4 class="anchored" data-anchor-id="key-differences">Key Differences</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Execution Method</th>
+<th style="text-align: center;">sys.path</th>
+<th style="text-align: center;"><code>__name__</code></th>
+<th style="text-align: center;">Executes <code>__init__.py</code></th>
+<th style="text-align: center;">Executes <code>__main__.py</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>import modulename</code></td>
+<td style="text-align: center;">Unchanged</td>
+<td style="text-align: center;">modulename</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>python script.py</code></td>
+<td style="text-align: center;">Adds script’s directory</td>
+<td style="text-align: center;"><code>__main__</code></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes (for package module)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>python -m modulename</code></td>
+<td style="text-align: center;">Adds current directory</td>
+<td style="text-align: center;"><code>__main__</code></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes (for package module)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="why-use-python--m" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-python--m">Why Use <code>python -m</code>?</h3>
+<p>The <code>-m</code> flag combines the convenience of modulenames with the ability to do relative imports from a root directory. Particularly:</p>
+<ol type="1">
+<li><strong>Executing Standard Library or Third-Party Tools</strong> : Many tools (like <code>venv</code> or <code>http.server</code>) are modules in the Python standard library or installed packages. Their filenames are not found easily, but their modulenames are:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That solves our first question from the intro.<br>
+If we tried to run <code>python venv</code>, we would be referencing the filename. Hence, Python would try to look for venv in the current directory, which will result in:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> venv</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\v</span>env<span class="st">': [Errno 2] No such file or directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li><strong>Running Local Modules with Imports</strong> : <code>python -m</code> helps avoid import errors when running modules from a root project directory. Imagine you’re working with this directory structure:</li>
+</ol>
+<pre class="plaintext"><code>project_dir/
+    src/
+        module1.py
+    tests/
+        test_module1.py</code></pre>
+<p>Running <code>python -m tests.test_module1</code> ensures the <code>src</code> package in <code>test_module1.py</code> is available for imports.</p>
+<p>Please note several caveats here.<br>
+First, for testing you would usually resort to either <code>pytest ...</code> or <code>python -m unittest tests/test_module1.py</code>. Second, one common error that I got when I didn’t know about the differences between modulenames and filenames was trying to run <code>python -m tests/test_module1.py</code>, which returned the following message: &gt; Relative module names not supported</p>
+<p>At first, I thought this was related to the imports in test_module1.py. However, now I realize this is due to us using the -m flag for modulenames, which means the Python interpreter is treating the filepath as a modulename, and warns you that relative module names with slashes are not supported.</p>
+<p>On the other hand, if you try to use the syntax for filenames <code>python tests/test_module1.py</code>, this will fail when there is an import in your tests that requires to use the src structure.</p>
+<p>Why? Because as mentioned above, the filename execution from the command line (python script.py) adds the directory of the executed file to the sys.path, whereas the modulename execution adds the current working directory.<br>
+Therefore, if we try to import src without having added the current working directory (project directory) to the sys.path, the Python interpreter won’t find any module named src in the script directory (in this case, <code>tests</code>), telling us src wasn’t found.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>The <code>python -m</code> flag is more than a shorthand—it’s a powerful tool that bridges the gap between imports and script execution. It allows you to execute modules while preserving the integrity of their package structure, supports relative imports, and is essential for running tools and packages from the command line.</p>
+<p>On the other hand, executing python without the -m flag executes modules using their filenames, adding their directory to sys.path.</p>
+<p>I hope you found this blog post useful! If you have any questions or comments, feel free to reach out.</p>
+<p><em>Note: The main source for this post is this <a href="https://stackoverflow.com/a/62923810/15459665">stackoverflow response</a> to a similar question.</em></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

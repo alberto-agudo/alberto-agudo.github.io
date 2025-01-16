@@ -6,80 +6,140 @@ categories: [Python, uv, pip, package-management]
 image: "https://imgs.xkcd.com/comics/python_environment.png"
 ---
 
-*Note: This post assumes previous Python package management knowledge, mainly* *virtualenv and pip.*
+*Note: This post assumes previous Python package management knowledge, mainly virtualenv and pip.*
 
-## `uv` for package management in Python
+## **uv** for fast and versatile package management in Python
 
 This post is probably only interesting to you if you program in Python.
 
-If you're not using `conda`, you've probably resorted to `pip` to manage your packages. If you've worked in multiple projects at the same time, it's quite likely you've used `virtualenv` at some point, or other virtual environment alternatives like `pipenv`.
+If you're not using `conda`, you've probably resorted to `pip` to manage your packages.   
+If you've worked in multiple projects at the same time, it's quite likely you've used `virtualenv` at some point, or other virtual environment alternatives like `pipenv`.
 
-As of 2024, a new Python package manager has been developed that aims to substitute the functionality of many other package managers in Python: `uv`.
+As of 2024, a new, Rust-written, Python package and project manager has been developed. It aims to substitute the functionality of many other Python package managers. Its name is `uv`, developed by [Astral](https://astral.sh/).
 
-`uv` allows you to create a virtual environment, install or remove packages or different Python versions and much more within a single tool. 
+`uv` allows you to create and manage a virtual environment, install or remove packages or different Python versions and much more within a single tool. 
 
-And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio's dependencies with a warm cache ![Installing Trio's dependencies with a warm cache](image.png){fig-align="center"}.
+And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio's dependencies with a warm cache. ![Installing Trio's dependencies with a warm cache](image.png){fig-align="center"}
 
-Hence, its two main strengths are **versatility** and **speed**.
+Hence, its two main strengths are **versatility** and **speed**.   
+I'd like to emphasize how versatile uv is by citing their own words: 
 
-Here I'll outline some commands to create a quick reference cheatsheet, however, the best article I've read about it is this [one](https://www.saaspegasus.com/guides/uv-deep-dive/).
+>🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.
 
-Particularly, the two main sections which I find very useful for reference are the cheatsheets, one for [uv vs existing tooling](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling), and then the [native uv workflow](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows).
+The best in-depth article I've read about it is [this one](https://www.saaspegasus.com/guides/uv-deep-dive/). Particularly, the sections that I find the most useful for reference are the cheatsheets; one for [uv vs existing tooling](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling), and then the [native uv workflow](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows).
 
-Here are the commands I promised, both for integrating UV into the use of pip or virtualenv, and also to use native uv when setting up a completely new project.
+To build upon it, here I'll outline some commands to create a quick reference cheatsheet based on my experience with the package.
 
-### Integrating `uv` into existing workflows 
+Here are the commands I promised. First for integrating UV into your current use of pip or virtualenv. Then, on how to use native uv when setting up a completely new project.
+
+### Integrating uv into existing workflows 
 
 1)  `uv` installation:
 
--   macOS/Linux: `curl -LsSf https://astral.sh/uv/install.sh \| sh`
--   Windows: `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"`
--   pip: `pip install uv`
+-   macOS/Linux: 
+```bash
+curl -LsSf https://astral.sh/uv/install.sh \| sh
+```
+-   Windows: 
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"
+```
+-   pip: 
+```bash
+pip install uv
+```
 
 2)  Installing Python:
 
-    `uv python install 3.12`
+    ```bash
+    uv python install 3.12
+    ```
 
 3)  Managing virtual environments:
 
-- Previously: `python3.12 -m venv /path/to/environment`
-- Currently: `uv venv /path/to/environment --python 3.12`
+- Previously: 
+```bash
+python3.12 -m venv /path/to/environment
+```
+- Currently: 
+```bash
+uv venv /path/to/environment --python 3.12
+```
 
 4)  Installing a package:
 
-- Previously: `pip install flask` 
-- Currently: `uv pip install flask`
+- Previously: 
+```bash
+pip install flask
+``` 
+- Currently: 
+```bash
+uv pip install flask
+```
 
 5)  Building package dependencies (requirements.txt) file:
 
-- pip-tools: `pip-compile requirements.in -o requirements.txt` 
-- uv: `uv pip compile requirements.in -o requirements.txt`
+- pip-tools: 
+```bash 
+pip-compile requirements.in -o requirements.txt
+```  
+- uv: 
+```bash
+uv pip compile requirements.in -o requirements.txt
+```
+
+*) BONUS: Exporting package dependencies from native uv to requirements.txt:
+
+Sometimes you might find yourself needing requirements.txt of a project you've
+built with uv (at least I've found myself in that situation). You can use
+this command to export all your dependencies from your lockfile (`uv.lock`): 
+
+```bash
+uv export --format requirements-txt
+```
 
 ------------------------------------------------------------------------
 
-### Using native `uv`:
+### Using native uv:
 
 1) Initializing repo: `uv init repo`
 
-    That will create a `pyproject.toml` file, which will handle the package requirements of the project for you. 
-    It also automatically creates a virtual environment for you.
+    That will create a `pyproject.toml` file, which will handle the package requirements of the project. 
+    It also automatically creates a virtual environment.
 
-2) Adding packages to the repo: `uv add` (e.g., flask) 
+2) Adding package dependencies: `uv add` (e.g., flask)  
 
-    You can also manually specify packages in the `pyproject.toml`
+    You can also manually specify packages in `pyproject.toml`. There are
+    many options to specify the source, or specify a different package 
+    version depending on the OS you're using. For more info check
+    the [uv add docs](https://docs.astral.sh/uv/reference/cli/#uv-add).
 
-3) Installing dependencies: `uv sync`
+3) Removing package dependencies: `uv remove`  
 
-Makes sure everything specified in `pyproject.toml` is installed.
+    Same as the previous one but for removing dependencies from the toml file.
+    Here uv shines for its quick conflict resolution.
+
+4) Installing dependencies: `uv sync`
+
+This part involves a two-step process. First, it locks the project dependencies from
+pyproject.toml into a lockfile (`uv.lock`), which has a complete detail about
+all the direct and indirect dependencies of the project. After that, it 
+installs (or removes) the changes in dependencies into the virtual environment, 
+setting everything up to run your project with the exact set of dependencies you've specified.
 
 
-4) Running a python file: `uv run` (e.g., app.py)
+5) Running a python file: `uv run` (e.g., app.py)
 
-This one will make sure that all dependencies are installed and up to date before reunning a python file
+This one is similar to running `python script.py`, but first it run `uv sync` to make sure that all dependencies are installed and up to date before running.  
+If you want to run Python interactively, you can specify `uv run python`
 
-5) Checking current dependencies tree: `uv tree`
-
+6) Checking current dependencies tree: `uv tree`
 
 ---
 
-This is a very short list of commands I've found useful so far, for more information please check out the blog I've mentioned above.
+This is a very short list of commands I've found useful so far, for more information please check out the blog I've mentioned above and feel free to reach me out
+if you'd like me to add something.
+
+In next posts I might expand on the use of `uv` or explore `Ruff`, a very fast linter from the same developers.
+
+Thanks for reading and I hope you found this useful! 
