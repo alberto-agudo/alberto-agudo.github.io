@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/03-python-m-flag/index.html",
       "/posts/02-uv-for-package-management-in-python/index.html",
       "/posts/01-how-to-setup-your-gh-pages-blog/index.html",
       "/posts/00-first-post/index.html"

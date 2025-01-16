@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -37,10 +71,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d3043699f4f525e226433170f63674df.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-25433ece000ddd62b812a3758a41376d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a2d73546e8ce815b7159ec8458f570cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -154,10 +188,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#uv-for-package-management-in-python" id="toc-uv-for-package-management-in-python" class="nav-link active" data-scroll-target="#uv-for-package-management-in-python"><code>uv</code> for package management in Python</a>
+  <li><a href="#uv-for-fast-and-versatile-package-management-in-python" id="toc-uv-for-fast-and-versatile-package-management-in-python" class="nav-link active" data-scroll-target="#uv-for-fast-and-versatile-package-management-in-python"><strong>uv</strong> for fast and versatile package management in Python</a>
   <ul class="collapse">
-  <li><a href="#integrating-uv-into-existing-workflows" id="toc-integrating-uv-into-existing-workflows" class="nav-link" data-scroll-target="#integrating-uv-into-existing-workflows">Integrating <code>uv</code> into existing workflows</a></li>
-  <li><a href="#using-native-uv" id="toc-using-native-uv" class="nav-link" data-scroll-target="#using-native-uv">Using native <code>uv</code>:</a></li>
+  <li><a href="#integrating-uv-into-existing-workflows" id="toc-integrating-uv-into-existing-workflows" class="nav-link" data-scroll-target="#integrating-uv-into-existing-workflows">Integrating uv into existing workflows</a></li>
+  <li><a href="#using-native-uv" id="toc-using-native-uv" class="nav-link" data-scroll-target="#using-native-uv">Using native uv:</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,72 +203,104 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p><em>Note: This post assumes previous Python package management knowledge, mainly</em> <em>virtualenv and pip.</em></p>
-<section id="uv-for-package-management-in-python" class="level2">
-<h2 class="anchored" data-anchor-id="uv-for-package-management-in-python"><code>uv</code> for package management in Python</h2>
+<p><em>Note: This post assumes previous Python package management knowledge, mainly virtualenv and pip.</em></p>
+<section id="uv-for-fast-and-versatile-package-management-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="uv-for-fast-and-versatile-package-management-in-python"><strong>uv</strong> for fast and versatile package management in Python</h2>
 <p>This post is probably only interesting to you if you program in Python.</p>
-<p>If you’re not using <code>conda</code>, you’ve probably resorted to <code>pip</code> to manage your packages. If you’ve worked in multiple projects at the same time, it’s quite likely you’ve used <code>virtualenv</code> at some point, or other virtual environment alternatives like <code>pipenv</code>.</p>
-<p>As of 2024, a new Python package manager has been developed that aims to substitute the functionality of many other package managers in Python: <code>uv</code>.</p>
-<p><code>uv</code> allows you to create a virtual environment, install or remove packages or different Python versions and much more within a single tool.</p>
-<p>And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio’s dependencies with a warm cache <img src="image.png" class="img-fluid quarto-figure quarto-figure-center" alt="Installing Trio’s dependencies with a warm cache">.</p>
-<p>Hence, its two main strengths are <strong>versatility</strong> and <strong>speed</strong>.</p>
-<p>Here I’ll outline some commands to create a quick reference cheatsheet, however, the best article I’ve read about it is this <a href="https://www.saaspegasus.com/guides/uv-deep-dive/">one</a>.</p>
-<p>Particularly, the two main sections which I find very useful for reference are the cheatsheets, one for <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling">uv vs existing tooling</a>, and then the <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows">native uv workflow</a>.</p>
-<p>Here are the commands I promised, both for integrating UV into the use of pip or virtualenv, and also to use native uv when setting up a completely new project.</p>
+<p>If you’re not using <code>conda</code>, you’ve probably resorted to <code>pip</code> to manage your packages.<br>
+If you’ve worked in multiple projects at the same time, it’s quite likely you’ve used <code>virtualenv</code> at some point, or other virtual environment alternatives like <code>pipenv</code>.</p>
+<p>As of 2024, a new, Rust-written, Python package and project manager has been developed. It aims to substitute the functionality of many other Python package managers. Its name is <code>uv</code>, developed by <a href="https://astral.sh/">Astral</a>.</p>
+<p><code>uv</code> allows you to create and manage a virtual environment, install or remove packages or different Python versions and much more within a single tool.</p>
+<p>And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio’s dependencies with a warm cache. <img src="image.png" class="img-fluid quarto-figure quarto-figure-center" alt="Installing Trio’s dependencies with a warm cache"></p>
+<p>Hence, its two main strengths are <strong>versatility</strong> and <strong>speed</strong>.<br>
+I’d like to emphasize how versatile uv is by citing their own words:</p>
+<blockquote class="blockquote">
+<p>🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.</p>
+</blockquote>
+<p>The best in-depth article I’ve read about it is <a href="https://www.saaspegasus.com/guides/uv-deep-dive/">this one</a>. Particularly, the sections that I find the most useful for reference are the cheatsheets; one for <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling">uv vs existing tooling</a>, and then the <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows">native uv workflow</a>.</p>
+<p>To build upon it, here I’ll outline some commands to create a quick reference cheatsheet based on my experience with the package.</p>
+<p>Here are the commands I promised. First for integrating UV into your current use of pip or virtualenv. Then, on how to use native uv when setting up a completely new project.</p>
 <section id="integrating-uv-into-existing-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="integrating-uv-into-existing-workflows">Integrating <code>uv</code> into existing workflows</h3>
+<h3 class="anchored" data-anchor-id="integrating-uv-into-existing-workflows">Integrating uv into existing workflows</h3>
 <ol type="1">
 <li><code>uv</code> installation:</li>
 </ol>
 <ul>
-<li>macOS/Linux: <code>curl -LsSf https://astral.sh/uv/install.sh \| sh</code></li>
-<li>Windows: <code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"</code></li>
-<li>pip: <code>pip install uv</code></li>
+<li>macOS/Linux:</li>
 </ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="dt">\|</span> sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Windows:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">powershell</span> <span class="at">-ExecutionPolicy</span> ByPass <span class="at">-c</span> <span class="st">"irm https://astral.sh/uv/install.ps1 \| iex"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>pip:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install uv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li><p>Installing Python:</p>
-<p><code>uv python install 3.12</code></p></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> python install 3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Managing virtual environments:</p></li>
 </ol>
 <ul>
-<li>Previously: <code>python3.12 -m venv /path/to/environment</code></li>
-<li>Currently: <code>uv venv /path/to/environment --python 3.12</code></li>
+<li>Previously:</li>
 </ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3.12</span> <span class="at">-m</span> venv /path/to/environment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Currently:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv /path/to/environment <span class="at">--python</span> 3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Installing a package:</li>
 </ol>
 <ul>
-<li>Previously: <code>pip install flask</code></li>
-<li>Currently: <code>uv pip install flask</code></li>
+<li>Previously:</li>
 </ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install flask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Currently:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install flask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="5" type="1">
 <li>Building package dependencies (requirements.txt) file:</li>
 </ol>
 <ul>
-<li>pip-tools: <code>pip-compile requirements.in -o requirements.txt</code></li>
-<li>uv: <code>uv pip compile requirements.in -o requirements.txt</code></li>
+<li>pip-tools:</li>
 </ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip-compile</span> requirements.in <span class="at">-o</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>uv:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip compile requirements.in <span class="at">-o</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>*) BONUS: Exporting package dependencies from native uv to requirements.txt:</p>
+<p>Sometimes you might find yourself needing requirements.txt of a project you’ve built with uv (at least I’ve found myself in that situation). You can use this command to export all your dependencies from your lockfile (<code>uv.lock</code>):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> export <span class="at">--format</span> requirements-txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="using-native-uv" class="level3">
-<h3 class="anchored" data-anchor-id="using-native-uv">Using native <code>uv</code>:</h3>
+<h3 class="anchored" data-anchor-id="using-native-uv">Using native uv:</h3>
 <ol type="1">
 <li><p>Initializing repo: <code>uv init repo</code></p>
-<p>That will create a <code>pyproject.toml</code> file, which will handle the package requirements of the project for you. It also automatically creates a virtual environment for you.</p></li>
-<li><p>Adding packages to the repo: <code>uv add</code> (e.g., flask)</p>
-<p>You can also manually specify packages in the <code>pyproject.toml</code></p></li>
+<p>That will create a <code>pyproject.toml</code> file, which will handle the package requirements of the project. It also automatically creates a virtual environment.</p></li>
+<li><p>Adding package dependencies: <code>uv add</code> (e.g., flask)</p>
+<p>You can also manually specify packages in <code>pyproject.toml</code>. There are many options to specify the source, or specify a different package version depending on the OS you’re using. For more info check the <a href="https://docs.astral.sh/uv/reference/cli/#uv-add">uv add docs</a>.</p></li>
+<li><p>Removing package dependencies: <code>uv remove</code></p>
+<p>Same as the previous one but for removing dependencies from the toml file. Here uv shines for its quick conflict resolution.</p></li>
 <li><p>Installing dependencies: <code>uv sync</code></p></li>
 </ol>
-<p>Makes sure everything specified in <code>pyproject.toml</code> is installed.</p>
-<ol start="4" type="1">
+<p>This part involves a two-step process. First, it locks the project dependencies from pyproject.toml into a lockfile (<code>uv.lock</code>), which has a complete detail about all the direct and indirect dependencies of the project. After that, it installs (or removes) the changes in dependencies into the virtual environment, setting everything up to run your project with the exact set of dependencies you’ve specified.</p>
+<ol start="5" type="1">
 <li>Running a python file: <code>uv run</code> (e.g., app.py)</li>
 </ol>
-<p>This one will make sure that all dependencies are installed and up to date before reunning a python file</p>
-<ol start="5" type="1">
+<p>This one is similar to running <code>python script.py</code>, but first it run <code>uv sync</code> to make sure that all dependencies are installed and up to date before running.<br>
+If you want to run Python interactively, you can specify <code>uv run python</code></p>
+<ol start="6" type="1">
 <li>Checking current dependencies tree: <code>uv tree</code></li>
 </ol>
 <hr>
-<p>This is a very short list of commands I’ve found useful so far, for more information please check out the blog I’ve mentioned above.</p>
+<p>This is a very short list of commands I’ve found useful so far, for more information please check out the blog I’ve mentioned above and feel free to reach me out if you’d like me to add something.</p>
+<p>In next posts I might expand on the use of <code>uv</code> or explore <code>Ruff</code>, a very fast linter from the same developers.</p>
+<p>Thanks for reading and I hope you found this useful!</p>
 
 
 </section>
