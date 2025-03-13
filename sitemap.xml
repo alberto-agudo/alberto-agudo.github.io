@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://alberto-agudo.github.io/index.html</loc>
-    <lastmod>2025-01-16T15:00:05.631Z</lastmod>
-  </url>
-  <url>
-    <loc>https://alberto-agudo.github.io/posts/01-how-to-setup-your-gh-pages-blog/index.html</loc>
-    <lastmod>2025-01-16T15:00:05.633Z</lastmod>
-  </url>
-  <url>
-    <loc>https://alberto-agudo.github.io/posts/03-python-m-flag/index.html</loc>
-    <lastmod>2025-01-16T15:00:05.633Z</lastmod>
-  </url>
-  <url>
     <loc>https://alberto-agudo.github.io/blog.html</loc>
-    <lastmod>2025-01-16T15:00:05.620Z</lastmod>
+    <lastmod>2025-03-13T17:18:44.681Z</lastmod>
   </url>
   <url>
     <loc>https://alberto-agudo.github.io/posts/02-uv-for-package-management-in-python/index.html</loc>
-    <lastmod>2025-01-16T15:00:05.633Z</lastmod>
+    <lastmod>2025-03-13T17:18:44.692Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/posts/01-how-to-setup-your-gh-pages-blog/index.html</loc>
+    <lastmod>2025-03-13T17:18:44.692Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/index.html</loc>
+    <lastmod>2025-03-13T17:18:44.690Z</lastmod>
   </url>
   <url>
     <loc>https://alberto-agudo.github.io/posts/00-first-post/index.html</loc>
-    <lastmod>2025-01-16T15:00:05.632Z</lastmod>
+    <lastmod>2025-03-13T17:18:44.691Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alberto-agudo.github.io/posts/03-python-m-flag/index.html</loc>
+    <lastmod>2025-03-13T17:18:44.693Z</lastmod>
   </url>
 </urlset>
