@@ -15,6 +15,10 @@ This post is probably only interesting to you if you program in Python.
 If you're not using `conda`, you've probably resorted to `pip` to manage your packages.   
 If you've worked in multiple projects at the same time, it's quite likely you've used `virtualenv` at some point, or other virtual environment alternatives like `pipenv`.
 
+### Pros and cons
+
+- Pros: 
+
 As of 2024, a new, Rust-written, Python package and project manager has been developed. It aims to substitute the functionality of many other Python package managers. Its name is `uv`, developed by [Astral](https://astral.sh/).
 
 `uv` allows you to create and manage a virtual environment, install or remove packages or different Python versions and much more within a single tool. 
@@ -26,23 +30,42 @@ I'd like to emphasize how versatile uv is by citing their own words:
 
 >🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.
 
+*Edit March 2025*: After some use of the tool, I've also found an additional advantage. 
+It's quite neat for managing orphaned dependencies. Imagine you install a python package like 
+openai but later in the project you realize you don't need it. You uninstall it, but its
+dependencies are left hanging, some might be relevant dependencies for other 
+packages in your project, whereas others don't really matter anymore. 
+
+How do you distinguish which packages to erase? With pip only the openai package
+gets uninstalled, but the others are left to you to uninstall manually.
+However, uv does this automatically every time it locks the project (e.g.
+`uv init`, `uv run`, we'll see the commands later).
+Hence, if you run `uv remove openai` and then execute Python, the hanging dependencies
+will be resolved. 
+
+- Cons: 
+
+Right now, the only main con that I can think of is that the tool is owned by Astral, 
+and even though it's open source and free to use now, maybe in the future its 
+commercial terms might change. 
+
+### Integrating uv into existing workflows 
+
 The best in-depth article I've read about it is [this one](https://www.saaspegasus.com/guides/uv-deep-dive/). Particularly, the sections that I find the most useful for reference are the cheatsheets; one for [uv vs existing tooling](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling), and then the [native uv workflow](https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows).
 
 To build upon it, here I'll outline some commands to create a quick reference cheatsheet based on my experience with the package.
 
 Here are the commands I promised. First for integrating UV into your current use of pip or virtualenv. Then, on how to use native uv when setting up a completely new project.
 
-### Integrating uv into existing workflows 
-
 1)  `uv` installation:
 
 -   macOS/Linux: 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh \| sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 -   Windows: 
 ```bash
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 -   pip: 
 ```bash
@@ -51,9 +74,9 @@ pip install uv
 
 2)  Installing Python:
 
-    ```bash
-    uv python install 3.12
-    ```
+```bash
+uv python install 3.12
+```
 
 3)  Managing virtual environments:
 
@@ -91,11 +114,26 @@ uv pip compile requirements.in -o requirements.txt
 *) BONUS: Exporting package dependencies from native uv to requirements.txt:
 
 Sometimes you might find yourself needing requirements.txt of a project you've
-built with uv (at least I've found myself in that situation). You can use
-this command to export all your dependencies from your lockfile (`uv.lock`): 
+built with uv (at least I've found myself in that situation) but you're not familiar
+with the use of of requirements.in files. You can use several commands to export all your dependencies from your lockfile (`uv.lock`): 
+
+
+This is the native and preferred way as it relocks the project before exporting, 
+this means that new packages added to the pyproject.toml file get synced into
+the uv.lock file and the virtual environment where Python lives, so it's slightly
+more trustworthy than uv pip freeze.
 
 ```bash
-uv export --format requirements-txt
+uv export --no-hashes --format requirements-txt > requirements.txt
+```
+
+Note that --no-hashes is just used to avoid showing the exact hashes of the
+package download, remove it if needed. 
+
+OR
+
+```bash
+uv pip freeze > requirements.txt
 ```
 
 ------------------------------------------------------------------------

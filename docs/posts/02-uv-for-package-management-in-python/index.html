@@ -190,6 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#uv-for-fast-and-versatile-package-management-in-python" id="toc-uv-for-fast-and-versatile-package-management-in-python" class="nav-link active" data-scroll-target="#uv-for-fast-and-versatile-package-management-in-python"><strong>uv</strong> for fast and versatile package management in Python</a>
   <ul class="collapse">
+  <li><a href="#pros-and-cons" id="toc-pros-and-cons" class="nav-link" data-scroll-target="#pros-and-cons">Pros and cons</a></li>
   <li><a href="#integrating-uv-into-existing-workflows" id="toc-integrating-uv-into-existing-workflows" class="nav-link" data-scroll-target="#integrating-uv-into-existing-workflows">Integrating uv into existing workflows</a></li>
   <li><a href="#using-native-uv" id="toc-using-native-uv" class="nav-link" data-scroll-target="#using-native-uv">Using native uv:</a></li>
   </ul></li>
@@ -209,6 +210,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This post is probably only interesting to you if you program in Python.</p>
 <p>If you’re not using <code>conda</code>, you’ve probably resorted to <code>pip</code> to manage your packages.<br>
 If you’ve worked in multiple projects at the same time, it’s quite likely you’ve used <code>virtualenv</code> at some point, or other virtual environment alternatives like <code>pipenv</code>.</p>
+<section id="pros-and-cons" class="level3">
+<h3 class="anchored" data-anchor-id="pros-and-cons">Pros and cons</h3>
+<ul>
+<li>Pros:</li>
+</ul>
 <p>As of 2024, a new, Rust-written, Python package and project manager has been developed. It aims to substitute the functionality of many other Python package managers. Its name is <code>uv</code>, developed by <a href="https://astral.sh/">Astral</a>.</p>
 <p><code>uv</code> allows you to create and manage a virtual environment, install or remove packages or different Python versions and much more within a single tool.</p>
 <p>And most importantly, it does it crazy fast, here are their own benchmarks for installing Trio’s dependencies with a warm cache. <img src="image.png" class="img-fluid quarto-figure quarto-figure-center" alt="Installing Trio’s dependencies with a warm cache"></p>
@@ -217,30 +223,39 @@ I’d like to emphasize how versatile uv is by citing their own words:</p>
 <blockquote class="blockquote">
 <p>🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.</p>
 </blockquote>
+<p><em>Edit March 2025</em>: After some use of the tool, I’ve also found an additional advantage. It’s quite neat for managing orphaned dependencies. Imagine you install a python package like openai but later in the project you realize you don’t need it. You uninstall it, but its dependencies are left hanging, some might be relevant dependencies for other packages in your project, whereas others don’t really matter anymore.</p>
+<p>How do you distinguish which packages to erase? With pip only the openai package gets uninstalled, but the others are left to you to uninstall manually. However, uv does this automatically every time it locks the project (e.g. <code>uv init</code>, <code>uv run</code>, we’ll see the commands later). Hence, if you run <code>uv remove openai</code> and then execute Python, the hanging dependencies will be resolved.</p>
+<ul>
+<li>Cons:</li>
+</ul>
+<p>Right now, the only main con that I can think of is that the tool is owned by Astral, and even though it’s open source and free to use now, maybe in the future its commercial terms might change.</p>
+</section>
+<section id="integrating-uv-into-existing-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="integrating-uv-into-existing-workflows">Integrating uv into existing workflows</h3>
 <p>The best in-depth article I’ve read about it is <a href="https://www.saaspegasus.com/guides/uv-deep-dive/">this one</a>. Particularly, the sections that I find the most useful for reference are the cheatsheets; one for <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-uv-versus-existing-tooling">uv vs existing tooling</a>, and then the <a href="https://www.saaspegasus.com/guides/uv-deep-dive/#cheatsheet-common-operations-in-uvs-workflows">native uv workflow</a>.</p>
 <p>To build upon it, here I’ll outline some commands to create a quick reference cheatsheet based on my experience with the package.</p>
 <p>Here are the commands I promised. First for integrating UV into your current use of pip or virtualenv. Then, on how to use native uv when setting up a completely new project.</p>
-<section id="integrating-uv-into-existing-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="integrating-uv-into-existing-workflows">Integrating uv into existing workflows</h3>
 <ol type="1">
 <li><code>uv</code> installation:</li>
 </ol>
 <ul>
 <li>macOS/Linux:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="dt">\|</span> sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Windows:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">powershell</span> <span class="at">-ExecutionPolicy</span> ByPass <span class="at">-c</span> <span class="st">"irm https://astral.sh/uv/install.ps1 \| iex"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">powershell</span> <span class="at">-ExecutionPolicy</span> ByPass <span class="at">-c</span> <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>pip:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install uv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
-<li><p>Installing Python:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> python install 3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Managing virtual environments:</p></li>
+<li>Installing Python:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> python install 3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Managing virtual environments:</li>
 </ol>
 <ul>
 <li>Previously:</li>
@@ -273,8 +288,12 @@ I’d like to emphasize how versatile uv is by citing their own words:</p>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip compile requirements.in <span class="at">-o</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>*) BONUS: Exporting package dependencies from native uv to requirements.txt:</p>
-<p>Sometimes you might find yourself needing requirements.txt of a project you’ve built with uv (at least I’ve found myself in that situation). You can use this command to export all your dependencies from your lockfile (<code>uv.lock</code>):</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> export <span class="at">--format</span> requirements-txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Sometimes you might find yourself needing requirements.txt of a project you’ve built with uv (at least I’ve found myself in that situation) but you’re not familiar with the use of of requirements.in files. You can use several commands to export all your dependencies from your lockfile (<code>uv.lock</code>):</p>
+<p>This is the native and preferred way as it relocks the project before exporting, this means that new packages added to the pyproject.toml file get synced into the uv.lock file and the virtual environment where Python lives, so it’s slightly more trustworthy than uv pip freeze.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> export <span class="at">--no-hashes</span> <span class="at">--format</span> requirements-txt <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that –no-hashes is just used to avoid showing the exact hashes of the package download, remove it if needed.</p>
+<p>OR</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="using-native-uv" class="level3">
